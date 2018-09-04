@@ -194,15 +194,18 @@ abstract class Application extends Module
      */
     public function __construct($config = [])
     {
+        // 绑定到 Yii::$app
         Yii::$app = $this;
+        // 注册到当前使用木块用
         static::setInstance($this);
-
+        // 设置状态
         $this->state = self::STATE_BEGIN;
-
+        // 预初始化
         $this->preInit($config);
-
+        // 注册错误处理
         $this->registerErrorHandler($config);
-
+        // 不需要设置module构造函数中的参数，跳过 
+        // 执行init初始化
         Component::__construct($config);
     }
 
@@ -240,10 +243,11 @@ abstract class Application extends Module
             // set "@runtime"
             $this->getRuntimePath();
         }
-
+        // 设置时区
         if (isset($config['timeZone'])) {
             $this->setTimeZone($config['timeZone']);
             unset($config['timeZone']);
+        // 如果配置文件中也没有设置，则指定一个默认的
         } elseif (!ini_get('date.timezone')) {
             $this->setTimeZone('UTC');
         }
@@ -269,6 +273,7 @@ abstract class Application extends Module
      */
     public function init()
     {
+        // 更新状态
         $this->state = self::STATE_INIT;
         $this->bootstrap();
     }
@@ -342,6 +347,7 @@ abstract class Application extends Module
                 echo "Error: no errorHandler component is configured.\n";
                 exit(1);
             }
+            // 使用服务定位器中注册
             $this->set('errorHandler', $config['components']['errorHandler']);
             unset($config['components']['errorHandler']);
             $this->getErrorHandler()->register();
@@ -466,6 +472,7 @@ abstract class Application extends Module
     }
 
     /**
+     * 获取时区
      * Returns the time zone used by this application.
      * This is a simple wrapper of PHP function date_default_timezone_get().
      * If time zone is not configured in php.ini or application config,
@@ -479,6 +486,7 @@ abstract class Application extends Module
     }
 
     /**
+     * 设置时区
      * Sets the time zone used by this application.
      * This is a simple wrapper of PHP function date_default_timezone_set().
      * Refer to the [php manual](http://www.php.net/manual/en/timezones.php) for available timezones.

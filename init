@@ -7,7 +7,7 @@
  *
  * init --env=Development --overwrite=n
  */
-
+// 检查是否安装openssl扩展
 if (!extension_loaded('openssl')) {
     die('The OpenSSL PHP extension is required by Yii2.');
 }
@@ -26,8 +26,9 @@ if (empty($params['env']) || $params['env'] === '1') {
         echo "  [$i] $name\n";
     }
     echo "\n  Your choice [0-" . (count($envs) - 1) . ', or "q" to quit] ';
+    // 等待 获取用户输入
     $answer = trim(fgets(STDIN));
-
+    // 如果不是纯数字 或者不在范围内 退出
     if (!ctype_digit($answer) || !in_array($answer, range(0, count($envs) - 1))) {
         echo "\n  Quit initialization.\n";
         exit(0);
@@ -51,6 +52,7 @@ $env = $envs[$envName];
 if (empty($params['env'])) {
     echo "\n  Initialize the application under '{$envNames[$answer]}' environment? [yes|no] ";
     $answer = trim(fgets(STDIN));
+    // 如果输入不是以 y开头的将会退出
     if (strncasecmp($answer, 'y', 1)) {
         echo "\n  Quit initialization.\n";
         exit(0);
@@ -59,12 +61,16 @@ if (empty($params['env'])) {
 
 echo "\n  Start initialization ...\n\n";
 $files = getFileList("$root/environments/{$env['path']}");
+// 过滤掉设置的要跳过的文件
 if (isset($env['skipFiles'])) {
     $skipFiles = $env['skipFiles'];
+    // 遍历 回调 获取绝对路径
     array_walk($skipFiles, function(&$value) use($env, $root) { $value = "$root/$value"; });
+    // 如果文件不存在也不跳过
     $files = array_diff($files, array_intersect_key($env['skipFiles'], array_filter($skipFiles, 'file_exists')));
 }
 $all = false;
+// 复制文件
 foreach ($files as $file) {
     if (!copyFile($root, "environments/{$env['path']}/$file", $file, $all, $params)) {
         break;
@@ -79,11 +85,17 @@ foreach ($callbacks as $callback) {
 }
 
 echo "\n  ... initialization completed.\n\n";
-
+/**
+ * 递归获取目录下的所有文件(包括子目录下的)
+ * @param  [type] $root     要遍历的目录
+ * @param  string $basePath 相对目录，保证输出层次
+ * @return [type]           [description]
+ */
 function getFileList($root, $basePath = '')
 {
     $files = [];
     $handle = opendir($root);
+    // 从目录句柄中读取条目
     while (($path = readdir($handle)) !== false) {
         if ($path === '.git' || $path === '.svn' || $path === '.' || $path === '..') {
             continue;
@@ -99,25 +111,36 @@ function getFileList($root, $basePath = '')
     closedir($handle);
     return $files;
 }
-
+/**
+ * 复制文件
+ * @param  [type] $root   根目录
+ * @param  [type] $source 源目录（相对根）
+ * @param  [type] $target 目标（相对根）
+ * @param  [type] &$all   用户选择的all覆盖用
+ * @param  [type] $params 额外参数
+ * @return [type]         [description]
+ */
 function copyFile($root, $source, $target, &$all, $params)
 {
     if (!is_file($root . '/' . $source)) {
         echo "       skip $target ($source not exist)\n";
         return true;
     }
+    // 如果目标文件已经存在
     if (is_file($root . '/' . $target)) {
+        // 如果内容一样，跳过
         if (file_get_contents($root . '/' . $source) === file_get_contents($root . '/' . $target)) {
             echo "  unchanged $target\n";
             return true;
         }
+        // 判断是否全部覆盖
         if ($all) {
             echo "  overwrite $target\n";
         } else {
             echo "      exist $target\n";
             echo "            ...overwrite? [Yes|No|All|Quit] ";
 
-
+            // 如果命令中没有带overwrite参数则执行获取用户输入
             $answer = !empty($params['overwrite']) ? $params['overwrite'] : trim(fgets(STDIN));
             if (!strncasecmp($answer, 'q', 1)) {
                 return false;
@@ -135,25 +158,34 @@ function copyFile($root, $source, $target, &$all, $params)
                 }
             }
         }
+        // 复制内容到目标文件
         file_put_contents($root . '/' . $target, file_get_contents($root . '/' . $source));
         return true;
     }
     echo "   generate $target\n";
+    // 创建文件
     @mkdir(dirname($root . '/' . $target), 0777, true);
+    // 复制
     file_put_contents($root . '/' . $target, file_get_contents($root . '/' . $source));
     return true;
 }
-
+/**
+ * 获取终端执行命令的参数
+ * @return [type] [description]
+ */
 function getParams()
 {
     $rawParams = [];
+    // 获取终端输入的参数
     if (isset($_SERVER['argv'])) {
         $rawParams = $_SERVER['argv'];
+        // 将第一个单元移除
         array_shift($rawParams);
     }
 
     $params = [];
     foreach ($rawParams as $param) {
+        // 如果是 --env=Production的形式提取参数和值
         if (preg_match('/^--(\w+)(=(.*))?$/', $param, $matches)) {
             $name = $matches[1];
             $params[$name] = isset($matches[3]) ? $matches[3] : true;
@@ -163,7 +195,11 @@ function getParams()
     }
     return $params;
 }
-
+/**
+ * 设置目录权限
+ * @param [type] $root  根路径
+ * @param [type] $paths 路径数组(值相对根路径)
+ */
 function setWritable($root, $paths)
 {
     foreach ($paths as $writable) {
@@ -178,7 +214,11 @@ function setWritable($root, $paths)
         }
     }
 }
-
+/**
+ * 设置文件权限
+ * @param [type] $root  [description]
+ * @param [type] $paths [description]
+ */
 function setExecutable($root, $paths)
 {
     foreach ($paths as $executable) {
@@ -193,15 +233,21 @@ function setExecutable($root, $paths)
         }
     }
 }
-
+/**
+ * 设置cookie值
+ * @param [type] $root  [description]
+ * @param [type] $paths [description]
+ */
 function setCookieValidationKey($root, $paths)
 {
     foreach ($paths as $file) {
         echo "   generate cookie validation key in $file\n";
         $file = $root . '/' . $file;
         $length = 32;
+        // 随机生成一串字节
         $bytes = openssl_random_pseudo_bytes($length);
         $key = strtr(substr(base64_encode($bytes), 0, $length), '+/=', '_-.');
+        // 替换
         $content = preg_replace('/(("|\')cookieValidationKey("|\')\s*=>\s*)(""|\'\')/', "\\1'$key'", file_get_contents($file));
         file_put_contents($file, $content);
     }
@@ -216,6 +262,7 @@ function createSymlink($root, $links)
         if (is_link($root . "/" . $link)) {
             @unlink($root . "/" . $link);
         }
+        // 创建软连接
         if (@symlink($root . "/" . $target, $root . "/" . $link)) {
             echo "      symlink $root/$target $root/$link\n";
         } else {
@@ -225,6 +272,7 @@ function createSymlink($root, $links)
 }
 
 /**
+ * 终端输出 添加显示的颜色
  * Prints error message.
  * @param string $message message
  */
@@ -234,6 +282,7 @@ function printError($message)
 }
 
 /**
+ * 判断终端是否支持输出带颜色的
  * Returns true if the stream supports colorization. ANSI colors are disabled if not supported by the stream.
  *
  * - windows without ansicon
@@ -288,6 +337,6 @@ function formatMessage($message, $styles)
     if (empty($styles) || !ansiColorsSupported()) {
         return $message;
     }
-
+    // 终端 输出带颜色要用的格式
     return sprintf("\x1b[%sm", implode(';', array_map('getStyleCode', $styles))) . $message . "\x1b[0m";
 }

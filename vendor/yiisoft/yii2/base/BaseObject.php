@@ -106,6 +106,7 @@ class BaseObject implements Configurable
         if (!empty($config)) {
             Yii::configure($this, $config);
         }
+        // 调用init初始化
         $this->init();
     }
 

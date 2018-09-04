@@ -171,6 +171,8 @@ class Module extends ServiceLocator
     }
 
     /**
+     * 存储当前请求的模块
+     * use Application
      * Sets the currently requested instance of this module class.
      * @param Module|null $instance the currently requested instance of this module class.
      * If it is `null`, the instance of the calling class will be removed, if any.
@@ -214,6 +216,7 @@ class Module extends ServiceLocator
     }
 
     /**
+     * 获取当前模块的目录
      * Returns the root directory of the module.
      * It defaults to the directory containing the module class file.
      * @return string the root directory of the module.
@@ -221,6 +224,7 @@ class Module extends ServiceLocator
     public function getBasePath()
     {
         if ($this->_basePath === null) {
+            // 反射获取类的目录
             $class = new \ReflectionClass($this);
             $this->_basePath = dirname($class->getFileName());
         }

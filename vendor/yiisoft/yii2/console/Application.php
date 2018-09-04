@@ -90,6 +90,7 @@ class Application extends \yii\base\Application
     }
 
     /**
+     * 获取终端上 指定的配置文件 
      * Loads the configuration.
      * This method will check if the command line option [[OPTION_APPCONFIG]] is specified.
      * If so, the corresponding file will be loaded as the application configuration.
@@ -99,11 +100,13 @@ class Application extends \yii\base\Application
      */
     protected function loadConfig($config)
     {
+        // 获取终端参数
         if (!empty($_SERVER['argv'])) {
             $option = '--' . self::OPTION_APPCONFIG . '=';
             foreach ($_SERVER['argv'] as $param) {
                 if (strpos($param, $option) !== false) {
                     $path = substr($param, strlen($option));
+                    // 使用终端上指定的配置文件
                     if (!empty($path) && is_file($file = Yii::getAlias($path))) {
                         return require $file;
                     }
