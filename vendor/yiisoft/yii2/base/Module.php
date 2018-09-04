@@ -512,6 +512,8 @@ class Module extends ServiceLocator
     }
 
     /**
+     * 执行action
+     * 如 site/index
      * Runs a controller action specified by a route.
      * This method parses the specified route and creates the corresponding child module(s), controller and action
      * instances. It then calls [[Controller::runAction()]] to run the action with the given parameters.

@@ -32,6 +32,7 @@ abstract class ErrorHandler extends Component
      */
     public $discardExistingOutput = true;
     /**
+     * 保证致命错误能够有足够的内存记录
      * @var int the size of the reserved memory. A portion of memory is pre-allocated so that
      * when an out-of-memory issue occurs, the error handler is able to handle the error with
      * the help of this reserved memory. If you set this value to be 0, no memory will be reserved.
@@ -128,9 +129,10 @@ abstract class ErrorHandler extends Component
             if ($this->discardExistingOutput) {
                 $this->clearOutput();
             }
+            // 渲染异常信息
             $this->renderException($exception);
             if (!YII_ENV_TEST) {
-                // 输出
+                // 输出持久化
                 \Yii::getLogger()->flush(true);
                 if (defined('HHVM_VERSION')) {
                     flush();
@@ -170,6 +172,7 @@ abstract class ErrorHandler extends Component
             echo 'An internal server error occurred.';
         }
         $msg .= "\n\$_SERVER = " . VarDumper::export($_SERVER);
+        // php记录日志
         error_log($msg);
         if (defined('HHVM_VERSION')) {
             flush();
@@ -231,8 +234,9 @@ abstract class ErrorHandler extends Component
             if (!class_exists('yii\\base\\ErrorException', false)) {
                 require_once __DIR__ . '/ErrorException.php';
             }
+            // 转化成异常
             $exception = new ErrorException($message, $code, $code, $file, $line);
-
+            // 错误栈
             // in case error appeared in __toString method we can't throw any exception
             $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
             array_shift($trace);
@@ -253,6 +257,7 @@ abstract class ErrorHandler extends Component
     }
 
     /**
+     * 处理致命一场或者程序结束时调用
      * Handles fatal PHP errors.
      */
     public function handleFatalError()

@@ -83,6 +83,7 @@ class ErrorHandler extends \yii\base\ErrorHandler
 
 
     /**
+     * 渲染异常信息
      * Renders the exception.
      * @param \Exception|\Error $exception the exception to be rendered.
      */
@@ -99,12 +100,13 @@ class ErrorHandler extends \yii\base\ErrorHandler
         } else {
             $response = new Response();
         }
-
+        // 设置响应码
         $response->setStatusCodeByException($exception);
 
         $useErrorView = $response->format === Response::FORMAT_HTML && (!YII_DEBUG || $exception instanceof UserException);
 
         if ($useErrorView && $this->errorAction !== null) {
+            // 执行配置的异常处理的action
             $result = Yii::$app->runAction($this->errorAction);
             if ($result instanceof Response) {
                 $response = $result;

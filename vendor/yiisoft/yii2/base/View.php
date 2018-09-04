@@ -202,6 +202,9 @@ class View extends Component implements DynamicContentAwareInterface
     }
 
     /**
+     * 渲染试图文件
+     * 
+     * use ErrorHandler->renderFile()
      * Renders a view file.
      *
      * If [[theme]] is enabled (not null), it will try to render the themed version of the view file as long

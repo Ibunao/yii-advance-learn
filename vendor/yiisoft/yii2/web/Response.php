@@ -294,6 +294,7 @@ class Response extends \yii\base\Response
     }
 
     /**
+     * 通过异常设置相应码
      * Sets the response status code based on the exception.
      * @param \Exception|\Error $e the exception object.
      * @throws InvalidArgumentException if the status code is invalid.

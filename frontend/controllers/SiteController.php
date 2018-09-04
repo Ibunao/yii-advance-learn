@@ -72,6 +72,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        // 测试开启debug模式和关闭时候输出错误的区别
+        // echo $ding['ran'];
         return $this->render('index');
     }
 

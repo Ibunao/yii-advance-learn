@@ -24,6 +24,7 @@ use yii\helpers\Console;
 class ErrorHandler extends \yii\base\ErrorHandler
 {
     /**
+     * 渲染异常信息
      * Renders an exception using ansi format for console output.
      * @param \Exception $exception the exception to be rendered.
      */
