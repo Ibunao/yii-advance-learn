@@ -32,6 +32,7 @@ class ServeController extends Controller
      */
     public $port = 8080;
     /**
+     * 这里指的是console，如果要启动backend需要进行替换
      * @var string path or [path alias](guide:concept-aliases) to directory to serve
      */
     public $docroot = '@app/web';
@@ -52,7 +53,6 @@ class ServeController extends Controller
     public function actionIndex($address = 'localhost')
     {
         $documentRoot = Yii::getAlias($this->docroot);
-
         if (strpos($address, ':') === false) {
             $address = $address . ':' . $this->port;
         }
@@ -61,7 +61,7 @@ class ServeController extends Controller
             $this->stdout("Document root \"$documentRoot\" does not exist.\n", Console::FG_RED);
             return self::EXIT_CODE_NO_DOCUMENT_ROOT;
         }
-
+        // 判断端口是否被占用
         if ($this->isAddressTaken($address)) {
             $this->stdout("http://$address is taken by another process.\n", Console::FG_RED);
             return self::EXIT_CODE_ADDRESS_TAKEN_BY_ANOTHER_PROCESS;
@@ -78,7 +78,8 @@ class ServeController extends Controller
             $this->stdout("Routing file is \"$this->router\"\n");
         }
         $this->stdout("Quit the server with CTRL-C or COMMAND-C.\n");
-
+        // 执行启动自带服务命令
+        // 例如 "D:\ding\wamp64\bin\php\php5.6.25\php.exe" -S localhost:8080 -t "D:\ding\wamp64\www\learn\yii\yiilearn\basic/web"
         passthru('"' . PHP_BINARY . '"' . " -S {$address} -t \"{$documentRoot}\" $this->router");
     }
 
@@ -108,6 +109,7 @@ class ServeController extends Controller
     }
 
     /**
+     * 判断是否端口是否已占用
      * @param string $address server address
      * @return bool if address is already in use
      */

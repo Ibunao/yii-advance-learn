@@ -10,6 +10,7 @@ return [
     'id' => 'app-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    // 指定控制器的命名空间目录
     'controllerNamespace' => 'console\controllers',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',

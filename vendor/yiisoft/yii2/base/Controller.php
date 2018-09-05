@@ -47,6 +47,7 @@ class Controller extends Component implements ViewContextInterface
      */
     public $module;
     /**
+     * 默认执行的action id
      * @var string the ID of the action that is used when the action ID is not specified
      * in the request. Defaults to 'index'.
      */

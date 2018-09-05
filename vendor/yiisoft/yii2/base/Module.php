@@ -103,6 +103,7 @@ class Module extends ServiceLocator
      */
     public $controllerNamespace;
     /**
+     * 该module的默认路由
      * @var string the default route of this module. Defaults to `default`.
      * The route may consist of child module ID, controller ID, and/or action ID.
      * For example, `help`, `post/create`, `admin/post/create`.

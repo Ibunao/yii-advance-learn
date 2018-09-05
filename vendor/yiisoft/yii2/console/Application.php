@@ -126,6 +126,7 @@ class Application extends \yii\base\Application
     {
         parent::init();
         if ($this->enableCoreCommands) {
+            // 将已经定义好的命令控制器添加到控制器列表
             foreach ($this->coreCommands() as $id => $command) {
                 if (!isset($this->controllerMap[$id])) {
                     $this->controllerMap[$id] = $command;
@@ -139,6 +140,7 @@ class Application extends \yii\base\Application
     }
 
     /**
+     * 解析请求，执行
      * Handles the specified request.
      * @param Request $request the request to be handled
      * @return Response the resulting response

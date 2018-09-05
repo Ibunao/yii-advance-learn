@@ -292,27 +292,32 @@ abstract class Application extends Module
         foreach ($this->extensions as $extension) {
             if (!empty($extension['alias'])) {
                 foreach ($extension['alias'] as $name => $path) {
+                    // 设置别名
                     Yii::setAlias($name, $path);
                 }
             }
+            // 如果有依赖需要提前创建的
             if (isset($extension['bootstrap'])) {
                 $component = Yii::createObject($extension['bootstrap']);
                 if ($component instanceof BootstrapInterface) {
                     Yii::debug('Bootstrap with ' . get_class($component) . '::bootstrap()', __METHOD__);
+                    // 执行组件的依赖方法
                     $component->bootstrap($this);
                 } else {
                     Yii::debug('Bootstrap with ' . get_class($component), __METHOD__);
                 }
             }
         }
-
+        // 执行配置的依赖
         foreach ($this->bootstrap as $mixed) {
             $component = null;
+            // 匿名函数
             if ($mixed instanceof \Closure) {
                 Yii::debug('Bootstrap with Closure', __METHOD__);
                 if (!$component = call_user_func($mixed, $this)) {
                     continue;
                 }
+            // 配置文件中的compent 或 module 的 id
             } elseif (is_string($mixed)) {
                 if ($this->has($mixed)) {
                     $component = $this->get($mixed);
@@ -322,7 +327,7 @@ abstract class Application extends Module
                     throw new InvalidConfigException("Unknown bootstrapping component ID: $mixed");
                 }
             }
-
+            // 类
             if (!isset($component)) {
                 $component = Yii::createObject($mixed);
             }
@@ -385,7 +390,9 @@ abstract class Application extends Module
     public function run()
     {
         try {
+            // 更新状态
             $this->state = self::STATE_BEFORE_REQUEST;
+            // 触发事件
             $this->trigger(self::EVENT_BEFORE_REQUEST);
 
             $this->state = self::STATE_HANDLING_REQUEST;
