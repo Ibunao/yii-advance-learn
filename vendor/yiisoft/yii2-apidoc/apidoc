@@ -10,10 +10,11 @@
 
 defined('YII_DEBUG') or define('YII_DEBUG', false);
 
+// 由于手动安装，用的是最后一种
 $composerAutoload = [
     __DIR__ . '/vendor/autoload.php', // standalone with "composer install" run
     __DIR__ . '/../../autoload.php', // script is installed as a composer binary
-    __DIR__ . '/../../../../autoload.php', // script is run from yii2-dev/extensions
+    __DIR__ . '/../../../../autoload.php', // script is run from yii2-dev/extensions 
 ];
 $vendorPath = null;
 foreach ($composerAutoload as $autoload) {
@@ -45,7 +46,7 @@ $application = new yii\console\Application([
     'id'                  => 'yii2-apidoc',
     'basePath'            => __DIR__,
     'enableCoreCommands'  => false,
-    'controllerNamespace' => 'yii\\apidoc\\commands',
+    'controllerNamespace' => 'yii\\apidoc\\commands',// 命令所在文件夹
 ]);
 if ($vendorPath !== null) {
     $application->setVendorPath($vendorPath);
