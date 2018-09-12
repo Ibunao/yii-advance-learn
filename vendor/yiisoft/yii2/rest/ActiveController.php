@@ -120,6 +120,7 @@ class ActiveController extends Controller
     }
 
     /**
+     * 检验用户的权限，如果不允许抛出错误ForbiddenHttpException
      * Checks the privilege of the current user.
      *
      * This method should be overridden to check whether the current user has the privilege

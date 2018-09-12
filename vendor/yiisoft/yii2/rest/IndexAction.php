@@ -88,8 +88,10 @@ class IndexAction extends Action
      */
     protected function prepareDataProvider()
     {
+        // post或者写在请求头中的参数
         $requestParams = Yii::$app->getRequest()->getBodyParams();
         if (empty($requestParams)) {
+            // get请求的参数
             $requestParams = Yii::$app->getRequest()->getQueryParams();
         }
 
