@@ -78,12 +78,14 @@ class SiteController extends Controller
     }
 
     /**
+     * 登录
      * Logs in a user.
      *
      * @return mixed
      */
     public function actionLogin()
     {
+        // 如果是已经登录的直接跳转首页
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -101,6 +103,7 @@ class SiteController extends Controller
     }
 
     /**
+     * 退出
      * Logs out the current user.
      *
      * @return mixed
@@ -113,6 +116,7 @@ class SiteController extends Controller
     }
 
     /**
+     * 联系我们
      * Displays contact page.
      *
      * @return mixed
@@ -126,7 +130,7 @@ class SiteController extends Controller
             } else {
                 Yii::$app->session->setFlash('error', 'There was an error sending your message.');
             }
-
+            // 刷新当前页
             return $this->refresh();
         } else {
             return $this->render('contact', [
@@ -146,6 +150,8 @@ class SiteController extends Controller
     }
 
     /**
+     * 注册
+     * 这个注册少了验证邮箱的步骤
      * Signs user up.
      *
      * @return mixed
@@ -167,6 +173,7 @@ class SiteController extends Controller
     }
 
     /**
+     * 发送重置密码token
      * Requests password reset.
      *
      * @return mixed
@@ -190,6 +197,7 @@ class SiteController extends Controller
     }
 
     /**
+     * 重置密码
      * Resets password.
      *
      * @param string $token

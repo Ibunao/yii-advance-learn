@@ -32,6 +32,7 @@ class LoginForm extends Model
     }
 
     /**
+     * 验证密码的规则
      * Validates the password.
      * This method serves as the inline validation for password.
      *

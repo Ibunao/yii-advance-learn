@@ -112,7 +112,6 @@ class User extends ActiveRecord implements IdentityInterface
         if (empty($token)) {
             return false;
         }
-
         $timestamp = (int) substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
@@ -143,6 +142,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * 验证密码是否正确
      * Validates password
      *
      * @param string $password password to validate
@@ -154,6 +154,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * 设置密码的hash
      * Generates password hash from password and sets it to the model
      *
      * @param string $password
