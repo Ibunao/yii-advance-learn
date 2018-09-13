@@ -67,6 +67,7 @@ class BizRule extends \yii\base\Model
     }
 
     /**
+     * 验证类是否存在
      * Validate class exists
      */
     public function classExists()
@@ -76,6 +77,7 @@ class BizRule extends \yii\base\Model
             $this->addError('className', $message);
             return;
         }
+        // 判断是否是rule的子类
         if (!is_subclass_of($this->className, Rule::className())) {
             $message = Yii::t('rbac-admin', "'{class}' must extend from 'yii\rbac\Rule' or its child class", [
                     'class' => $this->className]);

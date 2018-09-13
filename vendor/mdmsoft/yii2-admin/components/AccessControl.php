@@ -35,6 +35,7 @@ class AccessControl extends \yii\base\ActionFilter
      */
     private $_user = 'user';
     /**
+     * 配置允许的action的路由
      * @var array List of action that not need to check access.
      */
     public $allowActions = [];
@@ -61,12 +62,14 @@ class AccessControl extends \yii\base\ActionFilter
     }
 
     /**
+     * 执行之前检验
      * @inheritdoc
      */
     public function beforeAction($action)
     {
         $actionId = $action->getUniqueId();
         $user = $this->getUser();
+        // 检查路由是否被允许
         if (Helper::checkRoute('/' . $actionId, Yii::$app->getRequest()->get(), $user)) {
             return true;
         }
@@ -74,6 +77,7 @@ class AccessControl extends \yii\base\ActionFilter
     }
 
     /**
+     * 拒绝用户后，判断是否登陆还是无权限
      * Denies the access of the user.
      * The default implementation will redirect the user to the login page if he is a guest;
      * if the user is already logged, a 403 HTTP exception will be thrown.
@@ -90,6 +94,7 @@ class AccessControl extends \yii\base\ActionFilter
     }
 
     /**
+     * 在beforeAction之前检验
      * @inheritdoc
      */
     protected function isActive($action)
@@ -100,6 +105,7 @@ class AccessControl extends \yii\base\ActionFilter
         }
 
         $user = $this->getUser();
+        // 如果没有登陆，并且登陆的action就是此action，返回
         if($user->getIsGuest())
         {
             $loginUrl = null;
@@ -124,7 +130,7 @@ class AccessControl extends \yii\base\ActionFilter
         } else {
             $id = $action->id;
         }
-
+        // 判断是否在配置的允许的action路由中
         foreach ($this->allowActions as $route) {
             if (substr($route, -1) === '*') {
                 $route = rtrim($route, "*");

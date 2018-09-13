@@ -84,11 +84,13 @@ class Configs extends \yii\base\Object
     public $defaultUserStatus = 10;
 
     /**
+     * 是否只检查注册的路由
      * @var boolean If true then AccessControl only check if route are registered.
      */
     public $onlyRegisteredRoute = false;
 
     /**
+     * true 检查rule false 将忽略rule
      * @var boolean If false then AccessControl will check without Rule.
      */
     public $strict = true;
@@ -121,6 +123,7 @@ class Configs extends \yii\base\Object
     {
         foreach (self::$_classes as $key => $class) {
             try {
+                // 这里获取到的是全局配置的组件
                 $this->{$key} = empty($this->{$key}) ? null : Instance::ensure($this->{$key}, $class);
             } catch (\Exception $exc) {
                 $this->{$key} = null;

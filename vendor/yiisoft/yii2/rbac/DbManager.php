@@ -656,6 +656,7 @@ class DbManager extends BaseManager
     }
 
     /**
+     * 获取规则
      * {@inheritdoc}
      */
     public function getRules()
@@ -669,6 +670,7 @@ class DbManager extends BaseManager
         $rules = [];
         foreach ($query->all($this->db) as $row) {
             $data = $row['data'];
+            // 如果是资源类型
             if (is_resource($data)) {
                 $data = stream_get_contents($data);
             }

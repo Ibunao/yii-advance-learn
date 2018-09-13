@@ -71,6 +71,7 @@ class RuleController extends Controller
     {
         $model = new BizRule(null);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // 让缓存失效
             Helper::invalidate();
 
             return $this->redirect(['view', 'id' => $model->name]);

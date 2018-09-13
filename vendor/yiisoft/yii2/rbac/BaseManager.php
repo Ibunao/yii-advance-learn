@@ -109,6 +109,7 @@ abstract class BaseManager extends Component implements ManagerInterface
     }
 
     /**
+     * 创建权限对象
      * {@inheritdoc}
      */
     public function createPermission($name)
@@ -131,6 +132,7 @@ abstract class BaseManager extends Component implements ManagerInterface
             }
 
             return $this->addItem($object);
+        // 添加规则
         } elseif ($object instanceof Rule) {
             return $this->addRule($object);
         }

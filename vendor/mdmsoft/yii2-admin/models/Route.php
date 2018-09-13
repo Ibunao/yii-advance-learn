@@ -39,6 +39,7 @@ class Route extends \yii\base\Object
                 $item = $manager->createPermission($this->getPermissionName($route));
                 if (count($r) > 1) {
                     $action = '/' . trim($r[0], '/');
+                    // 如果没有这个权限，则添加
                     if (($itemAction = $manager->getPermission($action)) === null) {
                         $itemAction = $manager->createPermission($action);
                         $manager->add($itemAction);
@@ -108,6 +109,7 @@ class Route extends \yii\base\Object
     }
 
     /**
+     * 获取可分配的和已分配的路由
      * Get available and assigned routes
      * @return array
      */

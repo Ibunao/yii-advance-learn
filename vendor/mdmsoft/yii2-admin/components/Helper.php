@@ -67,6 +67,7 @@ class Helper
     }
 
     /**
+     * 获取用户语序的路由
      * Get assigned routes of user.
      * @param integer $userId
      * @return array
@@ -97,15 +98,19 @@ class Helper
     }
 
     /**
+     * 检查路由是否被改用户允许
      * Check access route for user.
-     * @param string|array $route
-     * @param integer|User $user
-     * @return boolean
+     * @param  [type] $route  当前请求的路由
+     * @param  array  $params 请求的参数
+     * @param  [type] $user   用户
+     * @return [type]         [description]
      */
     public static function checkRoute($route, $params = [], $user = null)
     {
         $config = Configs::instance();
+        // 规范化路由
         $r = static::normalizeRoute($route, $config->advanced);
+        // 是否只检查注册过的路由，没注册过的直接放行
         if ($config->onlyRegisteredRoute && !isset(static::getRegisteredRoutes()[$r])) {
             return true;
         }
@@ -116,6 +121,7 @@ class Helper
         $userId = $user instanceof User ? $user->getId() : $user;
 
         if ($config->strict) {
+            // 检查权限，包括rule
             if ($user->can($r, $params)) {
                 return true;
             }
@@ -127,6 +133,7 @@ class Helper
             }
             return $user->can('/*', $params);
         } else {
+            // 只检查允许的路由，不管rule
             $routes = static::getRoutesByUser($userId);
             if (isset($routes[$r])) {
                 return true;
@@ -142,6 +149,7 @@ class Helper
     }
 
     /**
+     * 规范化路由
      * Normalize route
      * @param  string  $route    Plain route string
      * @param  boolean|array $advanced Array containing the advanced configuration. Defaults to false.
@@ -239,6 +247,7 @@ class Helper
     }
 
     /**
+     * 让缓存失效
      * Use to invalidate cache.
      */
     public static function invalidate()

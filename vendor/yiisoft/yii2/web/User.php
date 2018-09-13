@@ -712,6 +712,7 @@ class User extends Component
     }
 
     /**
+     * 检查权限
      * Checks if the user can perform the operation as specified by the given permission.
      *
      * Note that you must configure "authManager" application component in order to use this method.
