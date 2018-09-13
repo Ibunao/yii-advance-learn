@@ -16,11 +16,32 @@ class TestRule extends Rule
     /**
      * @param string|integer $user 用户 ID.
      * @param Item $item 该规则相关的角色或者权限
-     * @param array $params 传给 ManagerInterface::checkAccess() 的参数
+     * @param array $params get参数
      * @return boolean 代表该规则相关的角色或者权限是否被允许
      */
     public function execute($user, $item, $params)
     {
+        /**
+         *  route:http://admin.yiilearn.com/goods/view?id=10
+{
+    "user": 2,
+    "item": {
+        "type": "2",
+        "name": "权限3",
+        "description": "用来测试的",
+        "ruleName": "backend\\rbac\\TestRule",
+        "data": {
+            "ding": "ran"
+        },
+        "createdAt": "1536826796",
+        "updatedAt": "1536826796"
+    },
+    "params": {
+        "id": "10"
+    }
+}
+         */
+        echo json_encode(['user' => $user, 'item' => $item, 'params' => $params]);exit;
         return isset($params['post']) ? $params['post']->createdBy == $user : false;
     }
 }

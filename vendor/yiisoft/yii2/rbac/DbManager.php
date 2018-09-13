@@ -118,6 +118,7 @@ class DbManager extends BaseManager
     private $_checkAccessAssignments = [];
 
     /**
+     * 检查用户是否有权限
      * {@inheritdoc}
      */
     public function checkAccess($userId, $permissionName, $params = [])
@@ -125,10 +126,11 @@ class DbManager extends BaseManager
         if (isset($this->_checkAccessAssignments[(string) $userId])) {
             $assignments = $this->_checkAccessAssignments[(string) $userId];
         } else {
+            // 获取用户分配的角色
             $assignments = $this->getAssignments($userId);
             $this->_checkAccessAssignments[(string) $userId] = $assignments;
         }
-
+        // 没有 角色或者默认的角色
         if ($this->hasNoAssignments($assignments)) {
             return false;
         }
