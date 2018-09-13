@@ -40,19 +40,21 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        
+
         'urlManager' => [
             'enablePrettyUrl' => true,
+            // 最好开启，如果不走rest的路由规则不满足就不用使用默认的了
+            // 'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
                 /**
                  * 配置url解析规则类
-                 * controller 配置的控制器id 配置的控制器访问的时候要用复数的形式  
-                 * 
+                 * controller 配置的控制器id 配置的控制器访问的时候要用复数的形式
+                 *
                  */
                 ['class' => 'yii\rest\UrlRule', 'controller' => ['user']],
                 [
-                    'class' => 'yii\rest\UrlRule', 
+                    'class' => 'yii\rest\UrlRule',
                     'controller' => 'product',
                     // 只有delete允许请求，如果请求，将会返回404
                     // 'only' => ['delete'],
@@ -63,7 +65,7 @@ return [
                 ],
             ],
         ],
-        
+
     ],
     'params' => $params,
 ];
