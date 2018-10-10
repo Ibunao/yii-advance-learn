@@ -58,12 +58,12 @@ return [
         ],
     ],
     // 为app注册行为, 这个是检验用户是否有权限进行访问的
-    // 'as access' => [
-    //     'class' => 'mdm\admin\components\AccessControl',
-    //     'allowActions' => [
-    //         'site/*',//允许访问的节点，可自行添加
-    //         'admin/*',//允许所有人访问admin节点及其子节点
-    //     ]
-    // ],
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
+            'site/*',//允许访问的节点，可自行添加
+            'admin/*',//允许所有人访问admin节点及其子节点
+        ]
+    ],
     'params' => $params,
 ];

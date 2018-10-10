@@ -12,25 +12,25 @@ class GoodsController extends Controller
 	/**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['index'],
-                        'allow' => true,
-                        'roles' => ['role1'],
-                        'roleParams' => ['a', 'b', 'c'],
-                    ],
-                ],
-            ],
-        ];
-    }
+    // public function behaviors()
+    // {
+    //     return [
+    //         'access' => [
+    //             'class' => AccessControl::className(),
+    //             'rules' => [
+    //                 [
+    //                     'actions' => ['index'],
+    //                     'allow' => true,
+    //                     'roles' => ['role1'],
+    //                     'roleParams' => ['a', 'b', 'c'],
+    //                 ],
+    //             ],
+    //         ],
+    //     ];
+    // }
 	public function actionIndex()
 	{
-		echo 'index';
+		return $this->render('/test/index', ['name' => 'index']);
 	}
 	public function actionUpdate()
 	{
