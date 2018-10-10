@@ -10,6 +10,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -25,7 +26,21 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
+<!-- 增加yii-admin设置的目录 -->
+<?php 
+use mdm\admin\components\MenuHelper;
+// 根据设置menu时的数据，将英文转成中文
+$callback = function($menu){
+    $data = $menu['data'];
+    return [
+        'label' => $data ? $data : $menu['name'],
+        'url' => [$menu['route']],
+        'items' => $menu['children']
+    ];
+};
+// 获取用户权限能看到的菜单
+$items = MenuHelper::getAssignedMenu(Yii::$app->user->id, null, $callback);
+ ?>
 <div class="wrap">
     <?php
     NavBar::begin([
@@ -50,6 +65,7 @@ AppAsset::register($this);
             . Html::endForm()
             . '</li>';
     }
+    $menuItems = array_merge($items, $menuItems);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,

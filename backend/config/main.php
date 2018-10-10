@@ -57,7 +57,7 @@ return [
             ],
         ],
     ],
-    // 为app注册行为
+    // 为app注册行为, 这个是检验用户是否有权限进行访问的
     // 'as access' => [
     //     'class' => 'mdm\admin\components\AccessControl',
     //     'allowActions' => [

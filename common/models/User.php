@@ -165,6 +165,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * 存cookie的时候用
      * Generates "remember me" authentication key
      */
     public function generateAuthKey()

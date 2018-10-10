@@ -4,8 +4,8 @@ namespace backend\rbac;
 use yii\rbac\Rule;
 
 /**
- * 创建规则，相对于权限更加细分
- * 如果该用户不满足某个权限，但是满足规则依旧可以访问
+ * 创建规则，相对于路由(权限)的权限更加细分
+ * 如果该用户不满足某个路由(权限)，但是满足规则依旧可以访问
  * 检查 authorID 是否和通过参数传进来的 user 参数相符
  */
 class TestRule extends Rule
