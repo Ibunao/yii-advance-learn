@@ -174,6 +174,7 @@ class Route extends \yii\base\Object
     }
 
     /**
+     * 获取项目的路由 
      * Get list of application routes
      * @return array
      */

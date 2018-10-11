@@ -5,10 +5,9 @@ use yii\rbac\Rule;
 
 /**
  * 创建规则，相对于路由(权限)的权限更加细分
- * 如果该用户不满足某个路由(权限)，但是满足规则依旧可以访问
- * 检查 authorID 是否和通过参数传进来的 user 参数相符
+ * 如果该用户满足某个路由(权限)，但是满足规则依旧不可以访问
  */
-class TestRule extends Rule
+class AuthorRule extends Rule
 {
     // 规则名
     public $name = 'isAuthor';
@@ -22,19 +21,19 @@ class TestRule extends Rule
     public function execute($user, $item, $params)
     {
         /**
-         *  route:http://admin.yiilearn.com/goods/view?id=10
+         *  route:http://admin.yiilearn.com/test/index3?id=10
 {
     "user": 2,
     "item": {
         "type": "2",
-        "name": "权限3",
-        "description": "用来测试的",
-        "ruleName": "backend\\rbac\\TestRule",
+        "name": "updateOwnPost",
+        "description": "更新自己的",
+        "ruleName": "isAuthor",
         "data": {
-            "ding": "ran"
+            "abc": "cba"
         },
-        "createdAt": "1536826796",
-        "updatedAt": "1536826796"
+        "createdAt": "1539229574",
+        "updatedAt": "1539229574"
     },
     "params": {
         "id": "10"
@@ -42,6 +41,6 @@ class TestRule extends Rule
 }
          */
         echo json_encode(['user' => $user, 'item' => $item, 'params' => $params]);exit;
-        return isset($params['post']) ? $params['post']->createdBy == $user : false;
+        return false;
     }
 }

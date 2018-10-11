@@ -3,12 +3,28 @@ namespace backend\controllers;
 
 use Yii;
 use yii\web\Controller;
-
+use yii\filters\AccessControl;
 /**
  * Goods controller
  */
 class TestController extends Controller
 {
+	public function behaviors()
+	{
+	    return [
+	        'access' => [
+	            'class' => AccessControl::className(),
+	            'rules' => [
+	                [
+	                    'actions' => ['index3'],
+	                    'allow' => true,
+	                    'roles' => ['/test/index3'],
+	                    'roleParams' => ['a', 'b', 'c'],
+	                ],
+	            ],
+	        ],
+	    ];
+	}
 	public function actionIndex()
 	{
 		// echo $temp = Yii::$app->security->encryptByPassword("security","bunao");
