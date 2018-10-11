@@ -37,6 +37,7 @@ class Controller extends \yii\web\Controller
      */
     public $serializer = 'yii\rest\Serializer';
     /**
+     * 关闭csrf验证
      * {@inheritdoc}
      */
     public $enableCsrfValidation = false;

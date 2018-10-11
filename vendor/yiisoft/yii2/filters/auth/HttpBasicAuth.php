@@ -8,6 +8,7 @@
 namespace yii\filters\auth;
 
 /**
+ * 通过http协议让浏览器谈输入账号密码输入框的方法
  * HttpBasicAuth is an action filter that supports the HTTP Basic authentication method.
  *
  * You may use HttpBasicAuth by attaching it as a behavior to a controller or module, like the following:
@@ -119,6 +120,7 @@ class HttpBasicAuth extends AuthMethod
     }
 
     /**
+     * 设置的响应头是弹窗的关键
      * {@inheritdoc}
      */
     public function challenge($response)

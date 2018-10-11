@@ -48,6 +48,7 @@ class HttpHeaderAuth extends AuthMethod
      */
     public function authenticate($user, $request, $response)
     {
+        // 获取请求头的数据验证数据  
         $authHeader = $request->getHeaders()->get($this->header);
 
         if ($authHeader !== null) {
