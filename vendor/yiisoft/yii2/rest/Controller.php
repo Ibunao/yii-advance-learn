@@ -49,20 +49,25 @@ class Controller extends \yii\web\Controller
     public function behaviors()
     {
         return [
+            // 设置相应格式
             'contentNegotiator' => [
                 'class' => ContentNegotiator::className(),
                 'formats' => [
+                    // 这个顺序很重要，如果请求没有设置 Accept:application/json||xml 谁第一个用谁
                     'application/json' => Response::FORMAT_JSON,
                     'application/xml' => Response::FORMAT_XML,
                 ],
             ],
+            // 过滤action允许的请求方法
             'verbFilter' => [
                 'class' => VerbFilter::className(),
                 'actions' => $this->verbs(),
             ],
+            // 验证token的
             'authenticator' => [
                 'class' => CompositeAuth::className(),
             ],
+            // 限制速率的
             'rateLimiter' => [
                 'class' => RateLimiter::className(),
             ],
@@ -70,6 +75,7 @@ class Controller extends \yii\web\Controller
     }
 
     /**
+     * 处理相应的数据
      * {@inheritdoc}
      */
     public function afterAction($action, $result)

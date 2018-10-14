@@ -106,6 +106,7 @@ class ActiveController extends Controller
     }
 
     /**
+     * 每个action允许的请求方法
      * {@inheritdoc}
      */
     protected function verbs()

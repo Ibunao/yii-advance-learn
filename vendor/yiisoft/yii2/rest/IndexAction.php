@@ -46,6 +46,7 @@ class IndexAction extends Action
      */
     public $prepareDataProvider;
     /**
+     * 过滤的条件
      * @var DataFilter|null data filter to be used for the search filter composition.
      * You must setup this field explicitly in order to enable filter processing.
      * For example:
@@ -75,6 +76,7 @@ class IndexAction extends Action
      */
     public function run()
     {
+        // 验证权限
         if ($this->checkAccess) {
             call_user_func($this->checkAccess, $this->id);
         }

@@ -144,8 +144,10 @@ class Serializer extends Component
      */
     public function serialize($data)
     {
+        // 如果继承模型并且有错误，返回错误信息
         if ($data instanceof Model && $data->hasErrors()) {
             return $this->serializeModelErrors($data);
+        // 如果继承自 Arrayable
         } elseif ($data instanceof Arrayable) {
             return $this->serializeModel($data);
         } elseif ($data instanceof DataProviderInterface) {
@@ -252,6 +254,7 @@ class Serializer extends Component
      */
     protected function serializeModel($model)
     {
+        // 如果是 head 请求，直接返回null
         if ($this->request->getIsHead()) {
             return null;
         }
@@ -261,6 +264,7 @@ class Serializer extends Component
     }
 
     /**
+     * 如果有模型错误，返回错误信息
      * Serializes the validation errors in a model.
      * @param Model $model
      * @return array the array representation of the errors

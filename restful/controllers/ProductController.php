@@ -7,4 +7,8 @@ use yii\rest\ActiveController;
 class ProductController extends ActiveController
 {
 	public $modelClass = 'restful\models\ProductModel';
+	public function actionSearch()
+	{
+		return ['product' => 'search'];
+	}
 }
