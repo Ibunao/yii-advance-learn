@@ -6,7 +6,7 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-
+use yii\filters\RateLimitInterface;
 /**
  * User model
  *
@@ -21,7 +21,7 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property string $password write-only password
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface,RateLimitInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
@@ -73,7 +73,41 @@ class User extends ActiveRecord implements IdentityInterface
         return static::findOne(['auth_key' => $token, 'status' => self::STATUS_ACTIVE]);
         // throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
-
+    /**
+     * 返回一段时间内允许请求的最大次数
+     * @param  [type] $request [description]
+     * @param  [type] $action  [description]
+     * @return [type]          [description]
+     */
+    public function getRateLimit($request, $action)
+    {
+        // 每五秒可以访问2次
+        return [2, 5];
+    }
+    /**
+     * 获取允许请求的数量和最后的访问的时间戳
+     * @param  [type] $request [description]
+     * @param  [type] $action  [description]
+     * @return [type]          [description]
+     */
+    public function loadAllowance($request, $action)
+    {
+        return [$this->allowance, $this->allowance_updated_at];
+    }
+    /**
+     * 保存剩余的请求数量和最后的访问时间
+     * @param  [type] $request   [description]
+     * @param  [type] $action    [description]
+     * @param  [type] $allowance [description]
+     * @param  [type] $timestamp [description]
+     * @return [type]            [description]
+     */
+    public function saveAllowance($request, $action, $allowance, $timestamp)
+    {
+        $this->allowance = $allowance;
+        $this->allowance_updated_at = $timestamp;
+        $this->save();
+    }
     /**
      * Finds user by username
      *

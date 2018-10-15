@@ -119,12 +119,28 @@ trait ArrayableTrait
      * @param bool $recursive whether to recursively return array representation of embedded objects.
      * @return array the array representation of the object
      */
+    /**
+     * 模型转换为数组
+     * 只返回fields()方法中申明的id和email字段
+        http://localhost/users?fields=id,email
+
+        返回fields()方法申明的所有字段，以及extraFields()方法中的profile字段
+        http://localhost/users?expand=profile
+
+        返回回fields()和extraFields()方法中提供的id, email 和 profile字段
+        http://localhost/users?fields=id,email&expand=profile
+     * @param  array   $fields    要显示的字段
+     * @param  array   $expand    额外显示的字段
+     * @param  boolean $recursive [description]
+     * @return [type]             [description]
+     */
     public function toArray(array $fields = [], array $expand = [], $recursive = true)
     {
         $data = [];
         foreach ($this->resolveFields($fields, $expand) as $field => $definition) {
+            // 获取属性值
             $attribute = is_string($definition) ? $this->$definition : $definition($this, $field);
-
+            // 递归，有关联数据的时候会用到
             if ($recursive) {
                 $nestedFields = $this->extractFieldsFor($fields, $field);
                 $nestedExpand = $this->extractFieldsFor($expand, $field);

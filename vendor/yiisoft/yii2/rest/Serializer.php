@@ -110,6 +110,7 @@ class Serializer extends Component
      */
     public $response;
     /**
+     * 是否允许
      * @var bool whether to preserve array keys when serializing collection data.
      * Set this to `true` to allow serialization of a collection as a JSON object where array keys are
      * used to index the model objects. The default is to serialize all collections as array, regardless
@@ -150,10 +151,11 @@ class Serializer extends Component
         // 如果继承自 Arrayable
         } elseif ($data instanceof Arrayable) {
             return $this->serializeModel($data);
+        // 使用的数据提供器 DataProvider
         } elseif ($data instanceof DataProviderInterface) {
             return $this->serializeDataProvider($data);
         }
-
+        // 直接返回数据
         return $data;
     }
 
@@ -188,7 +190,7 @@ class Serializer extends Component
             $models = array_values($dataProvider->getModels());
         }
         $models = $this->serializeModels($models);
-
+        // 设置分页信息的响应头
         if (($pagination = $dataProvider->getPagination()) !== false) {
             $this->addPaginationHeaders($pagination);
         }
@@ -229,6 +231,7 @@ class Serializer extends Component
     }
 
     /**
+     * 设置分页头
      * Adds HTTP headers about the pagination to the response.
      * @param Pagination $pagination
      */
@@ -254,7 +257,7 @@ class Serializer extends Component
      */
     protected function serializeModel($model)
     {
-        // 如果是 head 请求，直接返回null
+        // 如果是 head 请求，什么都没做 直接返回null
         if ($this->request->getIsHead()) {
             return null;
         }

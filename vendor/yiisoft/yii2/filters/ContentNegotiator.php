@@ -153,9 +153,11 @@ class ContentNegotiator extends ActionFilter implements BootstrapInterface
     {
         $request = $this->request ?: Yii::$app->getRequest();
         $response = $this->response ?: Yii::$app->getResponse();
+        // 如果配置的有 formats ，则根据请求参数进行协商返回的格式
         if (!empty($this->formats)) {
             $this->negotiateContentType($request, $response);
         }
+        // 如果配置的有语言，根据请求参数设置语言
         if (!empty($this->languages)) {
             Yii::$app->language = $this->negotiateLanguage($request);
         }
@@ -170,6 +172,7 @@ class ContentNegotiator extends ActionFilter implements BootstrapInterface
      */
     protected function negotiateContentType($request, $response)
     {
+        // get请求携带指定格式的参数， 如：_format=application/json
         if (!empty($this->formatParam) && ($format = $request->get($this->formatParam)) !== null) {
             if (in_array($format, $this->formats)) {
                 $response->format = $format;
@@ -180,12 +183,12 @@ class ContentNegotiator extends ActionFilter implements BootstrapInterface
 
             throw new UnsupportedMediaTypeHttpException('The requested response format is not supported: ' . $format);
         }
-
+        // 请求头携带指定格式的参数 如：Accept:application/json
         $types = $request->getAcceptableContentTypes();
         if (empty($types)) {
             $types['*/*'] = [];
         }
-
+        // 如果配置存在指定的格式则使用
         foreach ($types as $type => $params) {
             if (isset($this->formats[$type])) {
                 $response->format = $this->formats[$type];
@@ -194,7 +197,7 @@ class ContentNegotiator extends ActionFilter implements BootstrapInterface
                 return;
             }
         }
-
+        // 没有 指定 格式就用配置的第一个
         foreach ($this->formats as $type => $format) {
             $response->format = $format;
             $response->acceptMimeType = $type;
@@ -216,6 +219,7 @@ class ContentNegotiator extends ActionFilter implements BootstrapInterface
      */
     protected function negotiateLanguage($request)
     {
+        // get方式设置语言
         if (!empty($this->languageParam) && ($language = $request->get($this->languageParam)) !== null) {
             if (isset($this->languages[$language])) {
                 return $this->languages[$language];
@@ -228,7 +232,7 @@ class ContentNegotiator extends ActionFilter implements BootstrapInterface
 
             return reset($this->languages);
         }
-
+        // 通过请求头的 Accept-Language 参数设置语言
         foreach ($request->getAcceptableLanguages() as $language) {
             if (isset($this->languages[$language])) {
                 return $this->languages[$language];

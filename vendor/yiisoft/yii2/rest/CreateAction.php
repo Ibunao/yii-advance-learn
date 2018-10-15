@@ -42,7 +42,7 @@ class CreateAction extends Action
         if ($this->checkAccess) {
             call_user_func($this->checkAccess, $this->id);
         }
-
+        // 设置模型的场景
         /* @var $model \yii\db\ActiveRecord */
         $model = new $this->modelClass([
             'scenario' => $this->scenario,

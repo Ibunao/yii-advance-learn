@@ -14,8 +14,9 @@ class UserController extends ActiveController
 	{
 	    $behaviors = parent::behaviors();
 	    $behaviors['authenticator'] = [
-	        'class' => QueryParamAuth::className(),
-			'optional' => ['index']
+	        'class' => HttpBearerAuth::className(),
+	        // 可以不验证的action
+			// 'optional' => ['index']
 	    ];
 	    return $behaviors;
 	}

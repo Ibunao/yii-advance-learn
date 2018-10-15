@@ -72,6 +72,7 @@ class VerbFilter extends Behavior
 
 
     /**
+     * 绑定的事件
      * Declares event handlers for the [[owner]]'s events.
      * @return array events (array keys) and the corresponding event handler methods (array values).
      */
@@ -100,6 +101,7 @@ class VerbFilter extends Behavior
         $allowed = array_map('strtoupper', $verbs);
         if (!in_array($verb, $allowed)) {
             $event->isValid = false;
+            // 设置响应头
             // https://tools.ietf.org/html/rfc2616#section-14.7
             Yii::$app->getResponse()->getHeaders()->set('Allow', implode(', ', $allowed));
             throw new MethodNotAllowedHttpException('Method Not Allowed. This URL can only handle the following request methods: ' . implode(', ', $allowed) . '.');

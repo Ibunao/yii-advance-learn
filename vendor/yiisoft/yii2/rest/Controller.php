@@ -49,7 +49,7 @@ class Controller extends \yii\web\Controller
     public function behaviors()
     {
         return [
-            // 设置相应格式
+            // 根据请求设置响应格式和语言
             'contentNegotiator' => [
                 'class' => ContentNegotiator::className(),
                 'formats' => [
@@ -63,7 +63,7 @@ class Controller extends \yii\web\Controller
                 'class' => VerbFilter::className(),
                 'actions' => $this->verbs(),
             ],
-            // 验证token的
+            // 验证的
             'authenticator' => [
                 'class' => CompositeAuth::className(),
             ],
@@ -75,7 +75,7 @@ class Controller extends \yii\web\Controller
     }
 
     /**
-     * 处理相应的数据
+     * 处理响应的数据
      * {@inheritdoc}
      */
     public function afterAction($action, $result)
