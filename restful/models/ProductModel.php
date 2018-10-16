@@ -3,7 +3,7 @@
 namespace restful\models;
 
 use Yii;
-
+use common\models\User;
 /**
  * This is the model class for table "meet_product".
  *
@@ -93,5 +93,21 @@ class ProductModel extends \yii\db\ActiveRecord
             'is_down' => 'Is Down',
             'order' => 'Order',
         ];
+    }
+    /**
+     * 返回需要关联的属性 也就是getUser的缩写
+     * @return [type] [description]
+     */
+    public function extraFields()
+    {
+        return ['user'];
+    }
+    /**
+     * 关联
+     * @return [type] [description]
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), [ 'id' => 'order']);
     }
 }

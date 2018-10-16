@@ -76,7 +76,7 @@ return [
                     // 配置额外自定义的访问
                     // 访问格式如 GET /products/search 可以支持新行为 search
                     'extraPatterns' => [
-                        'GET search' => 'search',
+                        'POST search' => 'search',
                     ],
                 ],
             ],

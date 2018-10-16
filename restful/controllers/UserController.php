@@ -10,15 +10,15 @@ use yii\filters\auth\QueryParamAuth;
 
 class UserController extends ActiveController
 {
-	public function behaviors()
-	{
-	    $behaviors = parent::behaviors();
-	    $behaviors['authenticator'] = [
-	        'class' => HttpBearerAuth::className(),
-	        // 可以不验证的action
-			// 'optional' => ['index']
-	    ];
-	    return $behaviors;
-	}
+	// public function behaviors()
+	// {
+	//     $behaviors = parent::behaviors();
+	//     $behaviors['authenticator'] = [
+	//         'class' => HttpBearerAuth::className(),
+	//         // 可以不验证的action
+	// 		// 'optional' => ['index']
+	//     ];
+	//     return $behaviors;
+	// }
 	public $modelClass = 'common\models\User';
 }

@@ -55,7 +55,10 @@ class User extends ActiveRecord implements IdentityInterface,RateLimitInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
     }
-
+    public function fields()
+    {
+        return ['id', 'username'];
+    }
     /**
      * {@inheritdoc}
      */
