@@ -257,6 +257,7 @@ class Excel extends \yii\base\Widget
 	 */
 	public $savePath;
 	/**
+	 * excel格式
 	 * @var string format for excel to export. Valid value are 'Excel5','Excel2007','Excel2003XML','00Calc','Gnumeric'.
 	 */
 	public $format;
@@ -307,7 +308,7 @@ class Excel extends \yii\base\Widget
 	public function init()
 	{
 		parent::init();
-		// 配置 i18n
+		// 配置 i18n 用来格式数数据
 		if ($this->formatter == null) {
 			$this->formatter = \Yii::$app->getFormatter();
 		} elseif (is_array($this->formatter)) {
@@ -330,9 +331,11 @@ class Excel extends \yii\base\Widget
 		$row = 1;
 		$char = 26;
 		foreach ($models as $model) {
+			// 如果没有设置需要输出的列，则输出模型所有字段
 			if (empty($columns)) {
 				$columns = $model->attributes();
 			}
+			// 设置title行
 			if ($this->setFirstTitle && !$hasHeader) {
 				$isPlus = false;
 				$colplus = 0;
@@ -344,6 +347,7 @@ class Excel extends \yii\base\Widget
 						$colnum = 1;
 						$isPlus = true;
 					}
+					// 计算列名 如：AA 
 					if ($isPlus) {
 						$col .= chr(64+$colplus);
 					}
@@ -369,6 +373,7 @@ class Excel extends \yii\base\Widget
 			$isPlus = false;
 			$colplus = 0;
 			$colnum = 1;
+			// 设置数据行
 			foreach ($columns as $key=>$column) {
 				$col = '';
 				if ($colnum > $char) {
@@ -473,6 +478,7 @@ class Excel extends \yii\base\Widget
 	}
 	
 	/**
+	 * 处理列数据
 	 * Populating columns for checking the column is string or array. if is string this will be checking have a formatter or header.
 	 * @param array $columns
 	 * @throws InvalidParamException
@@ -486,13 +492,16 @@ class Excel extends \yii\base\Widget
 			if (is_string($value))
 			{
 				$value_log = explode(':', $value);
+				// 属性
 				$_columns[$key] = ['attribute' => $value_log[0]];
 				
 				if (isset($value_log[1]) && $value_log[1] !== null) {
+					// 格式
 					$_columns[$key]['format'] = $value_log[1];
 				}
 				
 				if (isset($value_log[2]) && $value_log[2] !== null) {
+					// 对应的header
 					$_columns[$key]['header'] = $value_log[2];
 				}
 			} elseif (is_array($value)) {
@@ -566,6 +575,7 @@ class Excel extends \yii\base\Widget
 			$this->format = 'Excel2007';
 		$objectwriter = \PHPExcel_IOFactory::createWriter($sheet, $this->format);
 		$path = 'php://output';
+		// 是否是生成到服务器
 		if (isset($this->savePath) && $this->savePath != null) {
 			$path = $this->savePath . '/' . $this->getFileName();
 		}
@@ -574,12 +584,13 @@ class Excel extends \yii\base\Widget
 	}
 	
 	/**
+	 * 读取xls文件
 	 * reading the xls file
 	 */
 	public function readFile($fileName)
 	{
 		if (!isset($this->format))
-			$this->format = \PHPExcel_IOFactory::identify($fileName);
+			$this->format = \PHPExcel_IOFactory::identify($fileName); // 获取文件的格式 
 		$objectreader = \PHPExcel_IOFactory::createReader($this->format);
 		$objectPhpExcel = $objectreader->load($fileName);
 		
@@ -628,6 +639,7 @@ class Excel extends \yii\base\Widget
 	 */
 	public function run()
 	{
+		// 导出
 		if ($this->mode == 'export') 
 		{
 	    	$sheet = new \PHPExcel();
@@ -639,12 +651,14 @@ class Excel extends \yii\base\Widget
 	    	{
 	    		$this->properties($sheet, $this->properties);
 	    	}
-	    	
+	    	// 多sheet
 	    	if ($this->isMultipleSheet) {
 	    		$index = 0;
 	    		$worksheet = [];
 	    		foreach ($this->models as $title => $models) {
+	    			// 创建sheet
 	    			$sheet->createSheet($index);
+	    			// 修改sheet的名称
 	    			$sheet->getSheet($index)->setTitle($title);
 	    			$worksheet[$index] = $sheet->getSheet($index);
 	    			$columns = isset($this->columns[$title]) ? $this->columns[$title] : [];
@@ -652,16 +666,19 @@ class Excel extends \yii\base\Widget
 	    			$this->executeColumns($worksheet[$index], $models, $this->populateColumns($columns), $headers);
 	    			$index++;
 	    		}
+	    	// 单sheet 
 	    	} else {
+	    		// 获取当前sheet
 	    		$worksheet = $sheet->getActiveSheet();
 	    		$this->executeColumns($worksheet, $this->models, isset($this->columns) ? $this->populateColumns($this->columns) : [], isset($this->headers) ? $this->headers : []);
 	    	}
-	    	
+	    	// 默认是下载模式
 	    	if ($this->asAttachment) {
 	    		$this->setHeaders();
 	    	}
 	    	$this->writeFile($sheet);
 		} 
+		// 导入
 		elseif ($this->mode == 'import') 
 		{
 			if (is_array($this->fileName)) {
