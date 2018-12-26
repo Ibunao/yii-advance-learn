@@ -135,6 +135,7 @@ class Serializer extends Component
     }
 
     /**
+     * 格式化相应的数据
      * Serializes the given data into a format that can be easily turned into other formats.
      * This method mainly converts the objects of recognized types into array representation.
      * It will not do conversion for unknown object types or non-object data.
@@ -261,7 +262,7 @@ class Serializer extends Component
         if ($this->request->getIsHead()) {
             return null;
         }
-
+        // 根据请求携带的参数来响应数据  
         list($fields, $expand) = $this->getRequestedFields();
         return $model->toArray($fields, $expand);
     }

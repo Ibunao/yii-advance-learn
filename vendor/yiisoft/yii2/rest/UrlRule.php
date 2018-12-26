@@ -152,10 +152,12 @@ class UrlRule extends CompositeUrlRule
 
 
     /**
+     * 初始化
      * {@inheritdoc}
      */
     public function init()
     {
+        // 必须指定控制器
         if (empty($this->controller)) {
             throw new InvalidConfigException('"controller" must be set.');
         }
@@ -180,15 +182,18 @@ class UrlRule extends CompositeUrlRule
      */
     protected function createRules()
     {
+        // 交换数组中的键和值
         $only = array_flip($this->only);
         $except = array_flip($this->except);
         $patterns = $this->extraPatterns + $this->patterns;
         $rules = [];
         foreach ($this->controller as $urlName => $controller) {
+            // 如果有指定的前缀(通常是模块名)会拼接上
             $prefix = trim($this->prefix . '/' . $urlName, '/');
             foreach ($patterns as $pattern => $action) {
                 // 符合配置的才添加到规则
                 if (!isset($except[$action]) && (empty($only) || isset($only[$action]))) {
+                    // 也就是每个符合的action都会创建一个WebUrlRule
                     $rules[$urlName][] = $this->createRule($pattern, $prefix, $controller . '/' . $action);
                 }
             }
@@ -242,6 +247,7 @@ class UrlRule extends CompositeUrlRule
     }
 
     /**
+     * 解析路由
      * {@inheritdoc}
      */
     public function parseRequest($manager, $request)

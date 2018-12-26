@@ -14,6 +14,9 @@ use yii\filters\auth\HttpBearerAuth;
 # 从请求链接中获取验证的token
 use yii\filters\auth\QueryParamAuth;
 
+use yii\db\Query;
+
+
 class ProductController extends ActiveController
 {
 	public $modelClass = 'restful\models\ProductModel';
@@ -38,7 +41,24 @@ class ProductController extends ActiveController
 	 */
 	public function actionSearch()
 	{
-		return Yii::$app->request->post();
+		# 直接返回数据
+		// return Yii::$app->request->post();
+		
+		# 通过 Query 查询 返回 ActiveDataProvider 的方式
+		$query = (new Query)->from('meet_product mp')
+			->leftJoin('meet_color mc', 'mc.color_id = mp.color_id');
+		return Yii::createObject([
+            'class' => ActiveDataProvider::className(),
+            'query' => $query,
+            'pagination' => [
+            	// 默认每页显示多少个数据
+            	'defaultPageSize' => 30,
+                'params' => [
+                	// 第几页的参数
+                	'page' => 1
+            	],
+            ],
+        ]);
 	}
 	/**
 	 * 检查权限
