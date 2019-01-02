@@ -1,0 +1,220 @@
+Array
+(
+    [0] => Array
+        (
+            [line] => 12
+            [file] => frontend/assets/AppAsset.php
+            [message] => No docblock for element '$basePath'
+        )
+
+    [1] => Array
+        (
+            [line] => 12
+            [file] => frontend/assets/AppAsset.php
+            [message] => No short description for element '$basePath'
+        )
+
+    [2] => Array
+        (
+            [line] => 13
+            [file] => frontend/assets/AppAsset.php
+            [message] => No docblock for element '$baseUrl'
+        )
+
+    [3] => Array
+        (
+            [line] => 13
+            [file] => frontend/assets/AppAsset.php
+            [message] => No short description for element '$baseUrl'
+        )
+
+    [4] => Array
+        (
+            [line] => 14
+            [file] => frontend/assets/AppAsset.php
+            [message] => No docblock for element '$css'
+        )
+
+    [5] => Array
+        (
+            [line] => 14
+            [file] => frontend/assets/AppAsset.php
+            [message] => No short description for element '$css'
+        )
+
+    [6] => Array
+        (
+            [line] => 17
+            [file] => frontend/assets/AppAsset.php
+            [message] => No docblock for element '$js'
+        )
+
+    [7] => Array
+        (
+            [line] => 17
+            [file] => frontend/assets/AppAsset.php
+            [message] => No short description for element '$js'
+        )
+
+    [8] => Array
+        (
+            [line] => 19
+            [file] => frontend/assets/AppAsset.php
+            [message] => No docblock for element '$depends'
+        )
+
+    [9] => Array
+        (
+            [line] => 19
+            [file] => frontend/assets/AppAsset.php
+            [message] => No short description for element '$depends'
+        )
+
+    [10] => Array
+        (
+            [line] => 8
+            [file] => frontend/controllers/ApidocController.php
+            [message] => No docblock for element 'frontend\controllers\ApidocController'
+        )
+
+    [11] => Array
+        (
+            [line] => 13
+            [file] => frontend/models/ContactForm.php
+            [message] => No docblock for element '$name'
+        )
+
+    [12] => Array
+        (
+            [line] => 13
+            [file] => frontend/models/ContactForm.php
+            [message] => No short description for element '$name'
+        )
+
+    [13] => Array
+        (
+            [line] => 14
+            [file] => frontend/models/ContactForm.php
+            [message] => No docblock for element '$email'
+        )
+
+    [14] => Array
+        (
+            [line] => 14
+            [file] => frontend/models/ContactForm.php
+            [message] => No short description for element '$email'
+        )
+
+    [15] => Array
+        (
+            [line] => 15
+            [file] => frontend/models/ContactForm.php
+            [message] => No docblock for element '$subject'
+        )
+
+    [16] => Array
+        (
+            [line] => 15
+            [file] => frontend/models/ContactForm.php
+            [message] => No short description for element '$subject'
+        )
+
+    [17] => Array
+        (
+            [line] => 16
+            [file] => frontend/models/ContactForm.php
+            [message] => No docblock for element '$body'
+        )
+
+    [18] => Array
+        (
+            [line] => 16
+            [file] => frontend/models/ContactForm.php
+            [message] => No short description for element '$body'
+        )
+
+    [19] => Array
+        (
+            [line] => 17
+            [file] => frontend/models/ContactForm.php
+            [message] => No docblock for element '$verifyCode'
+        )
+
+    [20] => Array
+        (
+            [line] => 17
+            [file] => frontend/models/ContactForm.php
+            [message] => No short description for element '$verifyCode'
+        )
+
+    [21] => Array
+        (
+            [line] => 13
+            [file] => frontend/models/PasswordResetRequestForm.php
+            [message] => No docblock for element '$email'
+        )
+
+    [22] => Array
+        (
+            [line] => 13
+            [file] => frontend/models/PasswordResetRequestForm.php
+            [message] => No short description for element '$email'
+        )
+
+    [23] => Array
+        (
+            [line] => 13
+            [file] => frontend/models/ResetPasswordForm.php
+            [message] => No docblock for element '$password'
+        )
+
+    [24] => Array
+        (
+            [line] => 13
+            [file] => frontend/models/ResetPasswordForm.php
+            [message] => No short description for element '$password'
+        )
+
+    [25] => Array
+        (
+            [line] => 12
+            [file] => frontend/models/SignupForm.php
+            [message] => No docblock for element '$username'
+        )
+
+    [26] => Array
+        (
+            [line] => 12
+            [file] => frontend/models/SignupForm.php
+            [message] => No short description for element '$username'
+        )
+
+    [27] => Array
+        (
+            [line] => 13
+            [file] => frontend/models/SignupForm.php
+            [message] => No docblock for element '$email'
+        )
+
+    [28] => Array
+        (
+            [line] => 13
+            [file] => frontend/models/SignupForm.php
+            [message] => No short description for element '$email'
+        )
+
+    [29] => Array
+        (
+            [line] => 14
+            [file] => frontend/models/SignupForm.php
+            [message] => No docblock for element '$password'
+        )
+
+    [30] => Array
+        (
+            [line] => 14
+            [file] => frontend/models/SignupForm.php
+            [message] => No short description for element '$password'
+        )
+
+)

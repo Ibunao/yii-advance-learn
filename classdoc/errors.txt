@@ -1,0 +1,59 @@
+Array
+(
+    [0] => Array
+        (
+            [line] => 24
+            [file] => frontend/controllers/SiteController.php
+            [message] => Method behaviors has no parent to inherit from in frontend\controllers\SiteController.
+        )
+
+    [1] => Array
+        (
+            [line] => 55
+            [file] => frontend/controllers/SiteController.php
+            [message] => Method actions has no parent to inherit from in frontend\controllers\SiteController.
+        )
+
+    [2] => Array
+        (
+            [line] => 23
+            [file] => frontend/models/ContactForm.php
+            [message] => Method rules has no parent to inherit from in frontend\models\ContactForm.
+        )
+
+    [3] => Array
+        (
+            [line] => 38
+            [file] => frontend/models/ContactForm.php
+            [message] => Method attributeLabels has no parent to inherit from in frontend\models\ContactForm.
+        )
+
+    [4] => Array
+        (
+            [line] => 19
+            [file] => frontend/models/PasswordResetRequestForm.php
+            [message] => Method rules has no parent to inherit from in frontend\models\PasswordResetRequestForm.
+        )
+
+    [5] => Array
+        (
+            [line] => 43
+            [file] => frontend/models/ResetPasswordForm.php
+            [message] => Method rules has no parent to inherit from in frontend\models\ResetPasswordForm.
+        )
+
+    [6] => Array
+        (
+            [line] => 20
+            [file] => frontend/models/SignupForm.php
+            [message] => Method rules has no parent to inherit from in frontend\models\SignupForm.
+        )
+
+    [7] => Array
+        (
+            [line] => 19
+            [file] => frontend/modules/test/Test.php
+            [message] => Method init has no parent to inherit from in app\modules\test\Test.
+        )
+
+)
