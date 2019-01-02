@@ -36,11 +36,12 @@ class ApiController extends BaseController
     /**
      * Renders API documentation files
      * @param array $sourceDirs
-     * @param string $targetDir
+     * @param string $targetDir 保存目录，可以使用别名形式
      * @return int status code.
      */
     public function actionIndex(array $sourceDirs, $targetDir)
     {
+        // 选用渲染模板
         $renderer = $this->findRenderer($this->template);
         $targetDir = $this->normalizeTargetDir($targetDir);
         if ($targetDir === false || $renderer === false) {
