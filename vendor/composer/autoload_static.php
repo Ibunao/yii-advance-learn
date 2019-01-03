@@ -40,6 +40,10 @@ class ComposerStaticInitc79bc73d97421aa31a038c4db00975e7
             'moonland\\phpexcel\\' => 18,
             'mdm\\admin\\' => 10,
         ),
+        'i' => 
+        array (
+            'ibunao\\apidoc\\' => 14,
+        ),
         'c' => 
         array (
             'cebe\\markdown\\latex\\' => 20,
@@ -142,6 +146,10 @@ class ComposerStaticInitc79bc73d97421aa31a038c4db00975e7
         'mdm\\admin\\' => 
         array (
             0 => __DIR__ . '/..' . '/mdmsoft/yii2-admin',
+        ),
+        'ibunao\\apidoc\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ibunao/yii2-apidoc',
         ),
         'cebe\\markdown\\latex\\' => 
         array (

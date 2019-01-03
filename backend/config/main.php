@@ -20,9 +20,11 @@ return [
             'layout' => 'left-menu', // yii2-admin的导航菜单
         ],
         'document' => [
-            'class' => 'backend\modules\document\Module',
+            'class' => 'ibunao\apidoc\Module',
             // 配置测试地址
-            'debugHost' => 'http://.yiilearn.com',
+            'debugHost' => 'http://admin.yiilearn.com',
+            // 和配置时定义的名字一致
+            'moduleName' => 'document',
         ],
     ],
     'components' => [

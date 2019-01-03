@@ -1,10 +1,10 @@
 <?php
-namespace backend\modules\document;
+namespace ibunao\apidoc;
 
 use Yii;
 class Module extends \yii\base\Module
 {
-    public $controllerNamespace = 'backend\modules\document\controllers';
+    public $controllerNamespace = 'ibunao\apidoc\controllers';
     public $debugHost;
     public $moduleName;
     public function init()

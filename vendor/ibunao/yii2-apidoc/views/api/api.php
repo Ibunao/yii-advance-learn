@@ -1,7 +1,7 @@
 <?php
 use yii\bootstrap\Tabs;
 use yii\helpers\Url;
-use backend\modules\document\widgets\SideNavWidget;
+use ibunao\apidoc\widgets\SideNavWidget;
 
 // use frontend\assets\AppAsset;
 // AppAsset::register($this);

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c34caf510c169480c1f8a05540524f52",
+    "content-hash": "0a5afcfdefe570a512d3652a8d2689c3",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -312,6 +312,45 @@
                 "html"
             ],
             "time": "2018-02-23T01:58:20+00:00"
+        },
+        {
+            "name": "ibunao/yii2-apidoc",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/echo-ding/yii-apidoc.git",
+                "reference": "3ac22f1ef4478f7ba0dea34eb79d354a1686d287"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/echo-ding/yii-apidoc/zipball/3ac22f1ef4478f7ba0dea34eb79d354a1686d287",
+                "reference": "3ac22f1ef4478f7ba0dea34eb79d354a1686d287",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ibunao\\apidoc\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "丁冉",
+                    "email": "275122510@qq.com",
+                    "homepage": "https://www.bunao.win"
+                }
+            ],
+            "description": "apidoc for yii",
+            "homepage": "https://github.com/echo-ding/yii-apidoc",
+            "keywords": [
+                "apidoc",
+                "接口文档"
+            ],
+            "time": "2019-01-03T15:36:28+00:00"
         },
         {
             "name": "mdmsoft/yii2-admin",

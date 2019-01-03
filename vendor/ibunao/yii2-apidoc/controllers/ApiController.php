@@ -1,12 +1,12 @@
 <?php
-namespace backend\modules\document\controllers;
+namespace ibunao\apidoc\controllers;
 
 use Yii;
 use yii\helpers\Url;
 use yii\web\Response;
 use yii\web\Controller;
-use backend\modules\document\models\ActionModel;
-use backend\modules\document\models\DocumentApi;
+use ibunao\apidoc\models\ActionModel;
+use ibunao\apidoc\models\DocumentApi;
 
 /**
  * Document controller

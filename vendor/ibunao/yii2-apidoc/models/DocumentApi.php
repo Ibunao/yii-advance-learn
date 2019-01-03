@@ -1,5 +1,5 @@
 <?php
-namespace backend\modules\document\models;
+namespace ibunao\apidoc\models;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
