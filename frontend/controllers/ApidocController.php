@@ -26,4 +26,5 @@ class ApidocController extends Controller
 	{
 		return 'apidoc';
 	}
+
 }

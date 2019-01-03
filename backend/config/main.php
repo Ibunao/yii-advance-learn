@@ -18,7 +18,12 @@ return [
         'admin' => [
             'class' => 'mdm\admin\Module',
             'layout' => 'left-menu', // yii2-admin的导航菜单
-        ]
+        ],
+        'document' => [
+            'class' => 'backend\modules\document\Module',
+            // 配置测试地址
+            'debugHost' => 'http://.yiilearn.com',
+        ],
     ],
     'components' => [
         'request' => [
