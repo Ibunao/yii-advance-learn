@@ -3783,23 +3783,23 @@
     },
     {
         "name": "ibunao/yii2-apidoc",
-        "version": "v0.0.1",
-        "version_normalized": "0.0.1.0",
+        "version": "v0.0.2",
+        "version_normalized": "0.0.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/echo-ding/yii-apidoc.git",
-            "reference": "3ac22f1ef4478f7ba0dea34eb79d354a1686d287"
+            "reference": "d960f4ae0e5aedc63a6b08067eb6a95c2d9b74d4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/echo-ding/yii-apidoc/zipball/3ac22f1ef4478f7ba0dea34eb79d354a1686d287",
-            "reference": "3ac22f1ef4478f7ba0dea34eb79d354a1686d287",
+            "url": "https://api.github.com/repos/echo-ding/yii-apidoc/zipball/d960f4ae0e5aedc63a6b08067eb6a95c2d9b74d4",
+            "reference": "d960f4ae0e5aedc63a6b08067eb6a95c2d9b74d4",
             "shasum": ""
         },
         "require": {
             "php": ">=5.2"
         },
-        "time": "2019-01-03T15:36:28+00:00",
+        "time": "2019-01-03T16:06:02+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
