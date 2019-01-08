@@ -40,7 +40,7 @@ class MpGateway extends Gateway
             'signType'  => 'MD5',
         ];
         $pay_request['paySign'] = Support::generateSign($pay_request);
-
+        // 事件
         Events::dispatch(Events::PAY_STARTED, new Events\PayStarted('Wechat', 'JSAPI', $endpoint, $pay_request));
 
         return new Collection($pay_request);

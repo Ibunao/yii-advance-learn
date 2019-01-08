@@ -36,12 +36,14 @@ class Pay
     public function __construct(array $config)
     {
         $this->config = new Config($config);
-
+        // 注册日志服务
         $this->registerLogService();
+        // 注册事件服务
         $this->registerEventService();
     }
 
     /**
+     * 调用不存在的静态方式时
      * Magic static call.
      *
      * @author yansongda <me@yansongda.cn>
@@ -56,6 +58,7 @@ class Pay
      */
     public static function __callStatic($method, $params): GatewayApplicationInterface
     {
+        // 传入可变参数 http://nl1.php.net/manual/zh/functions.arguments.php#functions.variable-arg-list
         $app = new self(...$params);
 
         return $app->create($method);
@@ -106,6 +109,7 @@ class Pay
     }
 
     /**
+     * 注册日志服务
      * Register log service.
      *
      * @author yansongda <me@yansongda.cn>
@@ -126,6 +130,7 @@ class Pay
     }
 
     /**
+     * 注册事件服务
      * Register event service.
      *
      * @author yansongda <me@yansongda.cn>

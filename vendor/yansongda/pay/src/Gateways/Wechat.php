@@ -21,7 +21,7 @@ use Yansongda\Supports\Str;
  * @method Response app(array $config) APP 支付
  * @method Collection groupRedpack(array $config) 分裂红包
  * @method Collection miniapp(array $config) 小程序支付
- * @method Collection mp(array $config) 公众号支付
+ * @method Collection mp(array $config) 公众号支付 JSAPI
  * @method Collection pos(array $config) 刷卡支付
  * @method Collection redpack(array $config) 普通红包
  * @method Collection scan(array $config) 扫码支付
@@ -91,6 +91,7 @@ class Wechat implements GatewayApplicationInterface
      */
     public function __construct(Config $config)
     {
+        // 根据mode获取 URL 中对应的 url
         $this->gateway = Support::create($config)->getBaseUri();
         $this->payload = [
             'appid'            => $config->get('app_id', ''),
@@ -141,6 +142,7 @@ class Wechat implements GatewayApplicationInterface
      */
     public function pay($gateway, $params = [])
     {
+        // 发送事件
         Events::dispatch(Events::PAY_STARTING, new Events\PayStarting('Wechat', $gateway, $params));
 
         $this->payload = array_merge($this->payload, $params);

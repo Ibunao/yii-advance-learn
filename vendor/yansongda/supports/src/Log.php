@@ -117,6 +117,7 @@ class Log
      */
     public static function createLogger($file = null, $identify = 'yansongda.supports', $level = Logger::DEBUG, $type = 'daily', $max_files = 30)
     {
+        // sys_get_temp_dir 返回 PHP 储存临时文件的默认目录的路径
         $file = is_null($file) ? sys_get_temp_dir().'/logs/'.$identify.'.log' : $file;
 
         $handler = $type === 'single' ? new StreamHandler($file, $level) : new RotatingFileHandler($file, $max_files, $level);
