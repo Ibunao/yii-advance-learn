@@ -23,7 +23,8 @@
         "moonlandsoft/yii2-phpexcel": "*",
         "yiisoft/yii2-apidoc": "^2.1",
         "ibunao/yii2-apidoc": "v0.0.2",
-        "yansongda/pay": "v2.6.1"
+        "yansongda/pay": "v2.6.1",
+        "overtrue/wechat": "4.1.17"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
