@@ -29,6 +29,7 @@ class WapGateway extends Gateway
 
         $mweb_url = $this->preOrder($payload)->get('mweb_url');
 
+        # return_url 配置的支付完成后跳转的页面
         $url = is_null(Support::getInstance()->return_url) ? $mweb_url : $mweb_url.
                         '&redirect_url='.urlencode(Support::getInstance()->return_url);
 
