@@ -61,6 +61,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'http://document.yiilearn.com/<controller:\w+>/<action:\w+>' => 'document/<controller>/<action>',
             ],
         ],
     ],
